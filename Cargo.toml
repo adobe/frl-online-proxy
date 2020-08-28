@@ -9,3 +9,4 @@ hyper = "0.13"
 tokio = { version = "0.2", features = ["full"] }
 config = "0.10"
 serde = { version = "^1.0.8", features = ["derive"] }
+structopt = "0.3"
