@@ -7,7 +7,10 @@ edition = "2018"
 [dependencies]
 hyper = "0.13"
 tokio = { version = "0.2", features = ["full"] }
+tokio-rustls = "^0.14.0"
 config = "0.10"
 serde = { version = "^1.0.8", features = ["derive"] }
 structopt = "0.3"
 eyre = "0.6"
+rustls = "0.18"
+futures-util = "^0.3.1"
