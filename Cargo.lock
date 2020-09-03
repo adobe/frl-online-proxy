@@ -171,6 +171,7 @@ dependencies = [
  "futures-util",
  "hyper",
  "hyper-tls",
+ "log",
  "rustls",
  "serde 1.0.115",
  "structopt",
