@@ -110,3 +110,11 @@ $ sudo apt install -y build-essential openssl-dev pkg-config
 ```
 
 NOTE: This is known to be sufficient for Ubuntu 18.04, but should also work for Debian and other Debian variants.
+
+### Buliding on CentOS
+
+CentOS/RHEL also requires some system packages before the application can be built.
+
+```
+$ sudo yum install -y gcc openssl-devel
+```
