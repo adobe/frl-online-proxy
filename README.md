@@ -109,4 +109,4 @@ Ubuntu requires a few system packages to be installed in order to build the appl
 $ sudo apt install -y build-essential openssl-dev pkg-config
 ```
 
-NOTE: This is known to be sufficient for Ubuntu 18.04, but should also work for Debian and othe Debian variants.
+NOTE: This is known to be sufficient for Ubuntu 18.04, but should also work for Debian and other Debian variants.
