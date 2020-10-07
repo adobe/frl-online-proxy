@@ -1,2 +1,4 @@
 /target
 .config
+node_modules
+dist
