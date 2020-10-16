@@ -100,3 +100,21 @@ The first time you invoke `cargo run` it will take some time to install and buil
 Build the proxy application with `cargo build`. Once the build process completes, the `frl-proxy` binary can be found in the `target/debug` directory.
 
 The proxy can also be built for release (which creates and optimized binary) with `cargo build --release`. This binary can be found in `target/release`.
+
+### Buliding on Ubuntu
+
+Ubuntu requires a few system packages to be installed in order to build the application.
+
+```
+$ sudo apt install -y build-essential openssl-dev pkg-config
+```
+
+NOTE: This is known to be sufficient for Ubuntu 18.04, but should also work for Debian and other Debian variants.
+
+### Buliding on CentOS
+
+CentOS/RHEL also requires some system packages before the application can be built.
+
+```
+$ sudo yum install -y gcc openssl-devel
+```
