@@ -43,9 +43,12 @@ FRL Online Proxy will run on any modern Windows or Linux server. This server mus
 We recommend creating a dedicated user account to run the proxy service. Note that it may be necessary to elevate this account's privileges if the proxy needs to listen on
 port 443.
 
+Regardless of the port that will be used, the system must be configured to allow traffic from any host on the desired port.
+
 # Installing the Proxy
 
-1. Download the [latest release](https://git.corp.adobe.com/dmeservices/frl-proxy/releases/latest) for the target platform.
+<!-- 1. Download the [latest release](https://git.corp.adobe.com/dmeservices/frl-proxy/releases/latest) for the target platform. -->
+1. Obtain the latest release for the target platform.
 2. Extract the release package to some root directory on the server (e.g. home directory).
 3. The proxy application binary (`frl-proxy` or `frl-proxy.exe` depending on platform) and associated utilities can be found in the `frl-proxy` directory.
 
@@ -75,6 +78,12 @@ Starting the proxy with no additional command-line or config options will use th
 * **Remote Host (Adobe licensing server):** https://lcs-cops.adobe.io
 * SSL disabled
 * Log to console only at info level
+
+The host IP should generally be `0.0.0.0` - this will let the proxy accept traffic from client machines.
+
+```
+$ ./frl-proxy start --host 0.0.0.0:8080
+```
 
 ## Command and usage summary
 
@@ -179,7 +188,7 @@ The configuration options in the `[proxy]` section of the config file govern pro
 passed in the command line, then the proxy will start in plain (http) mode.
 
 | Option | Purpose |
-|---|
+|---|---|
 | `host` | The host IP and port the proxy listens on. Format: `[host IP]:[port]`<br/>**Default:** `127.0.0.1:3030` |
 | `remote_host` | Adobe Licensing Service endpoint<br/>**Default:** `https://lcs-cops.adobe.io`<br/>**Note:** This will probably never need to be overridden except to debug network communication issues |
 | `ssl` | Enable (`true`) or disable (`false`) SSL.<br/>**Default:** `false` |
@@ -192,7 +201,7 @@ Options in the `[logging]` section govern logging behavior. By default, the prox
 can be used to change the console logging verbosity level or write log data to a file at a potentially different verbosity level.
 
 | Option | Purpose |
-|---|
+|---|---|
 | `console_log_level` | Set the verbosity level for console log output<br/>**Default:** `info` |
 | `log_to_file` | Enable (`true`) or disable (`false`) file logging<br/>**Default:** `false` |
 | `file_log_level` | Set the verbosity level for file log output. Ignored if `log_to_file` is `false`<br/>**Default:** `info` |
@@ -243,7 +252,7 @@ Notes:
 Commands:
 
 | Command | Purpose |
-|---|
+|---|---|
 | `start` | Install and start the proxy as a service. |
 | `stop` | Stop the proxy service |
 | `restart` | Restart the proxy service |
@@ -253,7 +262,7 @@ When the service is installed and running, you can view the status of the servic
 
 1. Open the run dialog - `Windows Key + R`
 2. Enter the command `services.msc`
-3. Hit Enter
+3. Press Enter
 4. The Service Manager will open showing a list of services installed on the system
 5. Ensure that FRL Online Proxy is installed, running and has a Startup Type of "Automatic"
    ![Service Manager](media/windows_service.png)
@@ -261,6 +270,62 @@ When the service is installed and running, you can view the status of the servic
 If something doesn't work as expected, see [Getting help](#getting-help).
 
 ## Linux
+
+On Linux systems, the easiest way to set up a service for the proxy is (systemd)[https://systemd.io/].
+
+**Note:** `sudo` privileges are required for many of these steps. We recommend creating or designating a
+non-privileged user account that will run the proxy and own the configuration and log files.
+
+1. Download the latest release to the desired system.
+2. Extract the `frl-proxy` binary to a system binary directory such as `/usr/bin`
+3. Generate a config file (see [Proxy configuration](#proxy-configuration))
+4. Open the config file in a text editor and configure proxy and logging settings (host, ssl settings)
+   * If the proxy will be run by a non-privileged account, it is necessary to set the proxy to listen on a port
+     number higher than 1024 (e.g. 4343)
+   * The config file should be copied to a system data directory (we recommend `/etc/frl-proxy`)
+   * The log file should be written to a system log directory such as `/var/log` (we recommend `/var/log/frl-proxy`)
+5. If you are going to run the proxy as a non-privileged user, change ownership of config file and log directory.
+   Replace `[user]` and `[group]` with the user and group of the non-privileged account.
+   * `sudo chown [user]:[group] /etc/frl-proxy/config.toml`
+   * `sudo chown -R [user]:[group] /var/log/frl-proxy`
+6. Create the service configuration file `/etc/systemd/system/frl-proxy.service` and open it in a text editor
+7. Copy this example configuration to the editor. Be sure to change the paths to the proxy binary and config file if necessary.
+   And replace `[user]` with the name of the account that will run the proxy.
+
+   ```
+   [Unit]
+   Description=FRL Online Proxy
+   After=network.target
+   StartLimitIntervalSec=0
+
+   [Service]
+   Type=simple
+   Restart=always
+   RestartSec=1
+   User=[user]
+   ExecStart=/usr/bin/frl-proxy start -c /etc/frl-proxy/config.toml
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+With the service config in place, the service can be controlled with `systemctl`. Here are some examples of how to manage the service.
+
+```sh
+# Enable/disable determines if the service will start on boot
+sudo systemctl enable frl-proxy
+sudo systemctl disable frl-proxy
+
+# Start/stop will manually start and stop the service, restart will stop and then start it
+sudo systemctl start frl-proxy
+sudo systemctl stop frl-proxy
+sudo systemctl restart frl-proxy
+
+# If any changes are made to the frl-proxy.service config, the systemd daemon must be reloaded
+sudo systemctl daemon-reload
+```
+
+If something doesn't work as expected, see [Getting help](#getting-help).
 
 # Creating proxy-enabled packages
 
@@ -281,4 +346,4 @@ FRL-Online packages must be configured to use the proxy. Proxy settings are mana
 
 # Getting help
 
-Coming soon!
+FRL Online Proxy is currently in pre-release. If you experience any issues or challenged using this solution, please reach out to your Adobe relationship specialist.
