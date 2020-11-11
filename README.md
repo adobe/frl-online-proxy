@@ -1,6 +1,6 @@
-# frl-proxy
+# frl-online-proxy
 
-Reverse proxy solution for customers using FRL-Online on isolated networks.
+Reverse proxy solution for Adobe customers using FRL-Online on isolated networks.
 
 ## Usage
 
@@ -75,8 +75,8 @@ To build the proxy application, make sure you have the [Rust toolchain](https://
 Then, from a terminal, clone this project.
 
 ```
-$ git clone git@git.corp.adobe.com:dmeservices/frl-proxy.git
-$ cd frl-proxy
+$ git clone https://github.com/adobe/frl-online-proxy.git
+$ cd frl-online-proxy
 ```
 
 ### Running with Cargo
