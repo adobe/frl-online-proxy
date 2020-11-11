@@ -2,6 +2,13 @@
 
 Reverse proxy solution for Adobe customers using FRL-Online on isolated networks.
 
+[Read the User Guide](https://opensource.adobe.com/frl-online-proxy/)
+
+## Getting help
+
+All bug requests, feature requests, questions and feedback submissions are handled with Github issues. Please create a new
+[issue](https://github.com/adobe/frl-online-proxy/issues) if you need any assisance or support.
+
 ## Usage
 
 ```
