@@ -346,4 +346,5 @@ FRL-Online packages must be configured to use the proxy. Proxy settings are mana
 
 # Getting help
 
-FRL Online Proxy is currently in pre-release. If you experience any issues or challenged using this solution, please reach out to your Adobe relationship specialist.
+All bug requests, feature requests, questions and feedback submissions are handled with Github issues. Please create a new
+[issue](https://github.com/adobe/frl-online-proxy/issues) if you need any assisance or support.
