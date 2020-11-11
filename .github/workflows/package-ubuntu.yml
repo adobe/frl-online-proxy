@@ -1,0 +1,29 @@
+name: Package Ubuntu
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Package
+      env:
+        DISTRO: ubuntu
+      run: |
+        sudo apt-get update && sudo apt install -y build-essential libssl-dev pkg-config
+        sh .build/node-setup.sh
+        . "$HOME/.nvm/nvm.sh"
+        npm run package
+    - name: Archive Ubuntu build
+      uses: actions/upload-artifact@v2
+      with:
+        name: package-ubuntu
+        path: dist/frl-proxy-ubuntu-${GITHUB_REF#refs/*/v}.tar.gz
+        retention-days: 5
