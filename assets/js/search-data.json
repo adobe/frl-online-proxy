@@ -1,13 +1,13 @@
 {"0": {
     "doc": "User Guide",
-    "title": "FRL Online Proxy User Guide",
+    "title": "Adobe FRL Online Proxy User Guide",
     "content": " ",
-    "url": "/pages/dmeservices/frl-proxy/en/#frl-online-proxy-user-guide",
-    "relUrl": "/en/#frl-online-proxy-user-guide"
+    "url": "/pages/dmeservices/frl-proxy/en/#adobe-frl-online-proxy-user-guide",
+    "relUrl": "/en/#adobe-frl-online-proxy-user-guide"
   },"1": {
     "doc": "User Guide",
     "title": "Table of Contents",
-    "content": ". | Overview . | Setup Overview | . | Set up a server | Installing the Proxy | Running the Proxy . | Command and usage summary | . | SSL | Proxy configuration . | Example configuration file | Proxy options | Logging options | . | Running as a service | Creating proxy-enabled packages | . ",
+    "content": ". | Overview . | Setup Overview | . | Set up a server | Installing the Proxy | Running the Proxy . | Command and usage summary | . | SSL | Proxy configuration . | Example configuration file | Proxy options | Logging options | . | Running as a service . | Windows | Linux | . | Creating proxy-enabled packages | Getting help | . ",
     "url": "/pages/dmeservices/frl-proxy/en/#table-of-contents",
     "relUrl": "/en/#table-of-contents"
   },"2": {
@@ -79,16 +79,34 @@
   },"13": {
     "doc": "User Guide",
     "title": "Running as a service",
-    "content": " ",
+    "content": "To ensure the highest level of availability and reliability, the proxy should be run as a service. This ensures that the proxy is always running. If the service is interrupted for any reason (such as system reboot), it will automatically restart. There are different methods for installing and enabling the proxy as a service depending on the environment. ",
     "url": "/pages/dmeservices/frl-proxy/en/#running-as-a-service",
     "relUrl": "/en/#running-as-a-service"
   },"14": {
     "doc": "User Guide",
+    "title": "Windows",
+    "content": "Windows realeases of FRL Online Proxy include tools for setting up the service. The script bin\\service.ps1 provides a simple interface for managing the proxy as a service. Example: . &gt; .\\service.ps1 start Service \"FRL Online Proxy\" installed successfully! FRL Online Proxy: START: The operation completed successfully. Notes: . | Windows Powershell is required to run service.ps1 | Administrator rights are required to install the service, so run service.ps1 from a Powershell Admin console. | service.ps1 must be run from the frl-proxy working directory | A config file is required with the filename config.toml. This file must be in the same working directory as frl-proxy.exe and service.ps1. See Proxy configuration for more information. | . Commands: . | Command | Purpose | . | start | Install and start the proxy as a service. | . | stop | Stop the proxy service | . | restart | Restart the proxy service | . | remove | Stop the service if necessary and remove from the registry | . When the service is installed and running, you can view the status of the service in Windows Service Manager. | Open the run dialog - Windows Key + R | Enter the command services.msc | Hit Enter | The Service Manager will open showing a list of services installed on the system | Ensure that FRL Online Proxy is installed, running and has a Startup Type of “Automatic” | . If something doesn’t work as expected, see Getting help. ",
+    "url": "/pages/dmeservices/frl-proxy/en/#windows",
+    "relUrl": "/en/#windows"
+  },"15": {
+    "doc": "User Guide",
+    "title": "Linux",
+    "content": " ",
+    "url": "/pages/dmeservices/frl-proxy/en/#linux",
+    "relUrl": "/en/#linux"
+  },"16": {
+    "doc": "User Guide",
     "title": "Creating proxy-enabled packages",
-    "content": ". | Log into the Admin Console - | Click the “Packages” tab on the top navigation bar. | Click the blue “Create a Package” button. | Select “Feature restricted licensing” and then “Next” | Select “Online” and then “Next” | Select entitlement, OS and product (app) options | On the next page, under “Management Options”, select “Contact Adobe through a reverse proxy” . Update the “DNS Entry or IP address” field to point to the FRL Online Proxy service. This can be a plain IP address or a hostname. Don’t forget to specify the port number if using a non-standard port. | . ",
+    "content": "FRL-Online packages must be configured to use the proxy. Proxy settings are managed in the Adobe Admin Console. | Log into the Admin Console | Click the “Packages” tab on the top navigation bar. | Click the blue “Create a Package” button. | Select “Feature restricted licensing” and then “Next” | Select “Online” and then “Next” | Select entitlement, OS and product (app) options | On the next page, under “Management Options”, select “Contact Adobe through a reverse proxy” . Update the “DNS Entry or IP address” field to point to the FRL Online Proxy service. This can be a plain IP address or a hostname. Don’t forget to specify the port number if using a non-standard port. | . ",
     "url": "/pages/dmeservices/frl-proxy/en/#creating-proxy-enabled-packages",
     "relUrl": "/en/#creating-proxy-enabled-packages"
-  },"15": {
+  },"17": {
+    "doc": "User Guide",
+    "title": "Getting help",
+    "content": "Coming soon! . ",
+    "url": "/pages/dmeservices/frl-proxy/en/#getting-help",
+    "relUrl": "/en/#getting-help"
+  },"18": {
     "doc": "User Guide",
     "title": "User Guide",
     "content": " ",
