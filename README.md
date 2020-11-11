@@ -106,7 +106,8 @@ The proxy can also be built for release (which creates and optimized binary) wit
 Ubuntu requires a few system packages to be installed in order to build the application.
 
 ```
-$ sudo apt install -y build-essential openssl-dev pkg-config
+$ sudo apt-get update
+$ sudo apt install -y build-essential libssl-dev pkg-config
 ```
 
 NOTE: This is known to be sufficient for Ubuntu 18.04, but should also work for Debian and other Debian variants.

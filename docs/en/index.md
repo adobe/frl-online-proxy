@@ -4,7 +4,7 @@ lang: en
 title: User Guide
 ---
 
-# FRL Online Proxy User Guide
+# Adobe FRL Online Proxy User Guide
 {:."no_toc"}
 
 ## Table of Contents
@@ -214,9 +214,59 @@ For example, setting the level to `warn` will output warnings and errors.
 
 # Running as a service
 
+To ensure the highest level of availability and reliability, the proxy should be run as a service. This ensures that the proxy is always running. If
+the service is interrupted for any reason (such as system reboot), it will automatically restart.
+
+There are different methods for installing and enabling the proxy as a service depending on the environment.
+
+## Windows
+
+Windows realeases of FRL Online Proxy include tools for setting up the service. The script `bin\service.ps1` provides a simple interface for
+managing the proxy as a service.
+
+Example:
+
+```
+> .\service.ps1 start
+Service "FRL Online Proxy" installed successfully!
+FRL Online Proxy: START: The operation completed successfully.
+```
+
+Notes:
+
+* Windows Powershell is required to run `service.ps1`
+* Administrator rights are required to install the service, so run `service.ps1` from a Powershell Admin console.
+* `service.ps1` must be run from the `frl-proxy` working directory
+* A config file is required with the filename `config.toml`. This file must be in the same working directory as `frl-proxy.exe` and `service.ps1`.
+  See [Proxy configuration](#proxy-configuration) for more information.
+
+Commands:
+
+| Command | Purpose |
+|---|
+| `start` | Install and start the proxy as a service. |
+| `stop` | Stop the proxy service |
+| `restart` | Restart the proxy service |
+| `remove` | Stop the service if necessary and remove from the registry |
+
+When the service is installed and running, you can view the status of the service in Windows Service Manager.
+
+1. Open the run dialog - `Windows Key + R`
+2. Enter the command `services.msc`
+3. Hit Enter
+4. The Service Manager will open showing a list of services installed on the system
+5. Ensure that FRL Online Proxy is installed, running and has a Startup Type of "Automatic"
+   ![Service Manager](media/windows_service.png)
+
+If something doesn't work as expected, see [Getting help](#getting-help).
+
+## Linux
+
 # Creating proxy-enabled packages
 
-1. Log into the Admin Console - [](https://adminconsole.adobe.com)
+FRL-Online packages must be configured to use the proxy. Proxy settings are managed in the Adobe Admin Console.
+
+1. Log into the [Admin Console](https://adminconsole.adobe.com)
 2. Click the "Packages" tab on the top navigation bar.
 3. Click the blue "Create a Package" button.
 4. Select "Feature restricted licensing" and then "Next"
@@ -229,4 +279,6 @@ For example, setting the level to `warn` will output warnings and errors.
    Update the "DNS Entry or IP address" field to point to the FRL Online Proxy service. This can be a plain IP address or a hostname. Don't forget to
    specify the port number if using a non-standard port.
 
+# Getting help
 
+Coming soon!
