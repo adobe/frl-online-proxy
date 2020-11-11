@@ -6,8 +6,7 @@ import tar from 'tar';
 import { join } from 'path';
 import fs from 'fs';
 
-// const version = (process.env.VERSION || process.env.npm_package_version).replace(/^v/, '')
-const version = process.env.npm_package_version
+const version = process.env.npm_package_version;
 const packageFile = 'frl-proxy-'+platform()+'-'+version+(platform() == 'win' ? '.zip' : '.tar.gz');
 const binary = join('target', 'release', (platform() == 'win' ? 'frl-proxy.exe' : 'frl-proxy'));
 const externalDir = join('external', platform());
@@ -44,6 +43,9 @@ function platform() {
     }
     if (platform == 'darwin') {
         return 'macos';
+    }
+    if (platform == 'linux' && process.env.DISTRO) {
+        return process.env.DISTRO;
     }
     return platform;
 }
