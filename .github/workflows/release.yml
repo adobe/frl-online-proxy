@@ -19,7 +19,7 @@ jobs:
           args: /bin/bash -c "cargo build --release --target=x86_64-unknown-linux-musl"
     - run: |
         npm install
-        npm run package
+        npm run dist
     - uses: actions/upload-artifact@v2
       with:
         name: frl-proxy-linux

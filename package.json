@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "cargo build --release",
-    "package": "npm run build && node .build/package.js"
+    "dist": "node .build/package.js",
+    "package": "npm run build && npm run dist"
   },
   "dependencies": {
     "archiver": "^5.0.0",
