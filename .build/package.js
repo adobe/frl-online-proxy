@@ -44,9 +44,6 @@ function platform() {
     if (platform == 'darwin') {
         return 'macos';
     }
-    if (platform == 'linux' && process.env.DISTRO) {
-        return process.env.DISTRO;
-    }
     return platform;
 }
 
