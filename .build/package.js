@@ -49,7 +49,7 @@ function platform() {
 
 function releasePath() {
     if (platform() == 'linux') {
-        return join('target', 'release', 'x86_64-unknown-linux-musl', 'frl-proxy');
+        return join('target', 'x86_64-unknown-linux-musl', 'release', 'frl-proxy');
     }
     return join('target', 'release', (platform() == 'win' ? 'frl-proxy.exe' : 'frl-proxy'));
 }

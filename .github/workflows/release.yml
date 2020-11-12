@@ -53,6 +53,7 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: frl-online-proxy ${{ github.ref }}
+        body_path: .changelog/latest.md
         draft: false
         prerelease: false
   upload-assets:
