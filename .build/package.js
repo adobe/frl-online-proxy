@@ -8,7 +8,7 @@ import fs from 'fs';
 
 const version = process.env.npm_package_version;
 const packageFile = 'frl-proxy-'+platform()+'-'+version+(platform() == 'win' ? '.zip' : '.tar.gz');
-const binary = join('target', 'release', (platform() == 'win' ? 'frl-proxy.exe' : 'frl-proxy'));
+const binary = releasePath();
 const externalDir = join('external', platform());
 const releaseDir = 'dist';
 const packageDir = 'frl-proxy'; 
@@ -45,6 +45,13 @@ function platform() {
         return 'macos';
     }
     return platform;
+}
+
+function releasePath() {
+    if (platform() == 'linux') {
+        return join('target', 'release', 'x86_64-unknown-linux-musl', 'frl-proxy');
+    }
+    return join('target', 'release', (platform() == 'win' ? 'frl-proxy.exe' : 'frl-proxy'));
 }
 
 function makeZip(source, out, innerDir) {
