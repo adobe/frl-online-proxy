@@ -12,7 +12,7 @@ All bug requests, feature requests, questions and feedback submissions are handl
 ## Usage
 
 ```
-frl-proxy 0.4.3
+frl-proxy 0.4.4
 FRL Proxy
 
 USAGE:
@@ -33,7 +33,7 @@ SUBCOMMANDS:
 Start the proxy. By default, it will run a plain HTTP server listening on `127.0.0.1:3030`, forwarding to `https://lcs-cops.adobe.io`.
 
 ```
-frl-proxy.exe-start 0.4.3
+frl-proxy.exe-start 0.4.4
 Start the proxy server
 
 USAGE:
@@ -61,7 +61,7 @@ The `-o/--out-file` option defines the path to the new config file. By default, 
 current working directory.
 
 ```
-frl-proxy.exe-init-config 0.4.3
+frl-proxy.exe-init-config 0.4.4
 Create a template config file
 
 USAGE:
