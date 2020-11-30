@@ -12,12 +12,16 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: System dependencies
+      - name: Linux dependencies
+        if: matrix.os == "ubuntu-latest"
         run: sudo apt-get update && sudo apt install -y build-essential libssl-dev pkg-config
 
       - uses: actions-rs/toolchain@v1
