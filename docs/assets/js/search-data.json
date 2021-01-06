@@ -7,7 +7,7 @@
   },"1": {
     "doc": "User Guide",
     "title": "Table of Contents",
-    "content": ". | Overview . | Setup Overview | . | Set up a server | Installing the Proxy | Running the Proxy . | Command and usage summary | . | SSL | Proxy configuration . | Example configuration file | Proxy options | Logging options | . | Running as a service . | Windows | Linux | . | Creating proxy-enabled packages | Getting help | . ",
+    "content": ". | Overview . | Setup Overview | . | Set up a server | Installing the Proxy | Running the Proxy . | Command and usage summary | . | SSL | Proxy configuration . | Example configuration file | Proxy options | Logging options | . | Running as a service . | Windows | Linux | . | Creating proxy-enabled packages | Troubleshooting . | Host/Connectivity Issues | SSL Certificates and Keys | . | Getting help | . ",
     "url": "/frl-online-proxy/en/#table-of-contents",
     "relUrl": "/en/#table-of-contents"
   },"2": {
@@ -91,7 +91,7 @@
   },"15": {
     "doc": "User Guide",
     "title": "Linux",
-    "content": "On Linux systems, the easiest way to set up a service for the proxy is (systemd)[https://systemd.io/]. Note: sudo privileges are required for many of these steps. We recommend creating or designating a non-privileged user account that will run the proxy and own the configuration and log files. | Download the latest release to the desired system. | Extract the frl-proxy binary to a system binary directory such as /usr/bin | Generate a config file (see Proxy configuration) | Open the config file in a text editor and configure proxy and logging settings (host, ssl settings) . | If the proxy will be run by a non-privileged account, it is necessary to set the proxy to listen on a port number higher than 1024 (e.g. 4343) | The config file should be copied to a system data directory (we recommend /etc/frl-proxy) | The log file should be written to a system log directory such as /var/log (we recommend /var/log/frl-proxy) | . | If you are going to run the proxy as a non-privileged user, change ownership of config file and log directory. Replace [user] and [group] with the user and group of the non-privileged account. | sudo chown [user]:[group] /etc/frl-proxy/config.toml | sudo chown -R [user]:[group] /var/log/frl-proxy | . | Create the service configuration file /etc/systemd/system/frl-proxy.service and open it in a text editor | Copy this example configuration to the editor. Be sure to change the paths to the proxy binary and config file if necessary. And replace [user] with the name of the account that will run the proxy. [Unit] Description=FRL Online Proxy After=network.target StartLimitIntervalSec=0 [Service] Type=simple Restart=always RestartSec=1 User=[user] ExecStart=/usr/bin/frl-proxy start -c /etc/frl-proxy/config.toml [Install] WantedBy=multi-user.target . | . With the service config in place, the service can be controlled with systemctl. Here are some examples of how to manage the service. # Enable/disable determines if the service will start on boot sudo systemctl enable frl-proxy sudo systemctl disable frl-proxy # Start/stop will manually start and stop the service, restart will stop and then start it sudo systemctl start frl-proxy sudo systemctl stop frl-proxy sudo systemctl restart frl-proxy # If any changes are made to the frl-proxy.service config, the systemd daemon must be reloaded sudo systemctl daemon-reload . If something doesn’t work as expected, see Getting help. ",
+    "content": "On Linux systems, the easiest way to set up a service for the proxy is systemd. Note: sudo privileges are required for many of these steps. We recommend creating or designating a non-privileged user account that will run the proxy and own the configuration and log files. | Download the latest release to the desired system. | Extract the frl-proxy binary to a system binary directory such as /usr/bin | Generate a config file (see Proxy configuration) | Open the config file in a text editor and configure proxy and logging settings (host, ssl settings) . | If the proxy will be run by a non-privileged account, it is necessary to set the proxy to listen on a port number higher than 1024 (e.g. 4343) | The config file should be copied to a system data directory (we recommend /etc/frl-proxy) | The log file should be written to a system log directory such as /var/log (we recommend /var/log/frl-proxy) | . | If you are going to run the proxy as a non-privileged user, change ownership of config file and log directory. Replace [user] and [group] with the user and group of the non-privileged account. | sudo chown [user]:[group] /etc/frl-proxy/config.toml | sudo chown -R [user]:[group] /var/log/frl-proxy | . | Create the service configuration file /etc/systemd/system/frl-proxy.service and open it in a text editor | Copy this example configuration to the editor. Be sure to change the paths to the proxy binary and config file if necessary. And replace [user] with the name of the account that will run the proxy. [Unit] Description=FRL Online Proxy After=network.target StartLimitIntervalSec=0 [Service] Type=simple Restart=always RestartSec=1 User=[user] ExecStart=/usr/bin/frl-proxy start -c /etc/frl-proxy/config.toml [Install] WantedBy=multi-user.target . | . With the service config in place, the service can be controlled with systemctl. Here are some examples of how to manage the service. # Enable/disable determines if the service will start on boot sudo systemctl enable frl-proxy sudo systemctl disable frl-proxy # Start/stop will manually start and stop the service, restart will stop and then start it sudo systemctl start frl-proxy sudo systemctl stop frl-proxy sudo systemctl restart frl-proxy # If any changes are made to the frl-proxy.service config, the systemd daemon must be reloaded sudo systemctl daemon-reload . If something doesn’t work as expected, see Getting help. ",
     "url": "/frl-online-proxy/en/#linux",
     "relUrl": "/en/#linux"
   },"16": {
@@ -102,11 +102,29 @@
     "relUrl": "/en/#creating-proxy-enabled-packages"
   },"17": {
     "doc": "User Guide",
+    "title": "Troubleshooting",
+    "content": " ",
+    "url": "/frl-online-proxy/en/#troubleshooting",
+    "relUrl": "/en/#troubleshooting"
+  },"18": {
+    "doc": "User Guide",
+    "title": "Host/Connectivity Issues",
+    "content": "If clients can’t connect to the proxy server, ensure the proxy is configured to listen to incoming connections on 0.0.0.0. Use the --host command-line option or the host configuration option. Example: . $ ./frl-proxy start --host 0.0.0.0:8080 . ",
+    "url": "/frl-online-proxy/en/#hostconnectivity-issues",
+    "relUrl": "/en/#hostconnectivity-issues"
+  },"19": {
+    "doc": "User Guide",
+    "title": "SSL Certificates and Keys",
+    "content": "The proxy currently supports two SSL key types - RSA and pkcs8. Depending on how the certificate and private key were generated, the proxy may have trouble detecting the key type. If you’ve generated an RSA key and get the following error, then you will need to make some changes to the key file. Error: Custom { kind: Other, error: \"unexpected error: invalid private key\" } . Edit the header and footer of your key file to read BEGIN/END RSA PRIVATE KEY. -----BEGIN RSA PRIVATE KEY----- [key data] -----END RSA PRIVATE KEY----- . ",
+    "url": "/frl-online-proxy/en/#ssl-certificates-and-keys",
+    "relUrl": "/en/#ssl-certificates-and-keys"
+  },"20": {
+    "doc": "User Guide",
     "title": "Getting help",
     "content": "All bug requests, feature requests, questions and feedback submissions are handled with Github issues. Please create a new issue if you need any assisance or support. ",
     "url": "/frl-online-proxy/en/#getting-help",
     "relUrl": "/en/#getting-help"
-  },"18": {
+  },"21": {
     "doc": "User Guide",
     "title": "User Guide",
     "content": " ",

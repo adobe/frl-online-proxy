@@ -344,6 +344,37 @@ FRL-Online packages must be configured to use the proxy. Proxy settings are mana
    Update the "DNS Entry or IP address" field to point to the FRL Online Proxy service. This can be a plain IP address or a hostname. Don't forget to
    specify the port number if using a non-standard port.
 
+# Troubleshooting
+
+## Host/Connectivity Issues
+
+If clients can't connect to the proxy server, ensure the proxy is configured to listen to incoming connections on 0.0.0.0. Use the `--host` command-line
+option or the `host` configuration option.
+
+Example:
+
+```
+$ ./frl-proxy start --host 0.0.0.0:8080
+```
+
+## SSL Certificates and Keys
+
+The proxy currently supports two SSL key types - **RSA** and **pkcs8**. Depending on how the certificate and private key were generated, the proxy
+may have trouble detecting the key type. If you've generated an RSA key and get the following error, then you will need to make some changes to the key
+file.
+
+```
+Error: Custom { kind: Other, error: "unexpected error: invalid private key" }
+```
+
+Edit the header and footer of your key file to read `BEGIN/END RSA PRIVATE KEY`.
+
+```
+-----BEGIN RSA PRIVATE KEY-----
+[key data]
+-----END RSA PRIVATE KEY-----
+```
+
 # Getting help
 
 All bug requests, feature requests, questions and feedback submissions are handled with Github issues. Please create a new
