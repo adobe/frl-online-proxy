@@ -271,7 +271,7 @@ If something doesn't work as expected, see [Getting help](#getting-help).
 
 ## Linux
 
-On Linux systems, the easiest way to set up a service for the proxy is (systemd)[https://systemd.io/].
+On Linux systems, the easiest way to set up a service for the proxy is [systemd](https://systemd.io/).
 
 **Note:** `sudo` privileges are required for many of these steps. We recommend creating or designating a
 non-privileged user account that will run the proxy and own the configuration and log files.
