@@ -9,6 +9,41 @@ Reverse proxy solution for Adobe customers using FRL-Online on isolated networks
 All bug requests, feature requests, questions and feedback submissions are handled with Github issues. Please create a new
 [issue](https://github.com/adobe/frl-online-proxy/issues) if you need any assisance or support.
 
+## Installation
+
+We currently provide automated builds for each release. These builds target Windows and Linux.
+
+### Windows
+
+1. Download the [latest release](https://github.com/adobe/frl-online-proxy/releases/latest).
+2. Open the application zip
+3. Copy the `frl-proxy` directory to your desired root location
+4. Open a PowerShell terminal
+5. Change directory to the frl-proxy location
+   ```
+   > cd c:\path\to\frl-proxy
+   ```
+6. Run the proxy
+   ```
+   > .\frl-proxy.exe start
+   ```
+
+### Linux
+
+1. Download the [latest release](https://github.com/adobe/frl-online-proxy/releases/latest). We recommend downloading it to the root of the proxy directory (e.g. `/home/[user]`)
+   ```
+   $ wget https://github.com/adobe/frl-online-proxy/releases/download/v0.5.1/frl-proxy-linux-0.5.1.tar.gz
+   ```
+2. Extract the archive
+   ```
+   $ tar xf frl-proxy-linux-0.5.1.tar.gz
+   ```
+3. The archive will extract to the directory `frl-proxy`, which contains the application binary
+   ```
+   $ cd frl-proxy
+   $ ./frl-proxy start
+   ```
+
 ## Usage
 
 ```
@@ -76,6 +111,8 @@ OPTIONS:
 ```
 
 ## Building and Running
+
+**NOTE:** We currently provide [builds](https://github.com/adobe/frl-online-proxy/releases/latest) for Windows and Linux. If you plan to run the proxy on these platforms, we recommend installing the latest build. It is generally only necessary to build the tool if you are doing development work, need to run it on a different platform, or if your system is unable to execute the binary.
 
 To build the proxy application, make sure you have the [Rust toolchain](https://rustup.rs/) installed on your system.
 
