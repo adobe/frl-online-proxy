@@ -7,7 +7,7 @@
   },"1": {
     "doc": "User Guide",
     "title": "Table of Contents",
-    "content": ". | Overview . | Setup Overview | . | Set up a server | Installing the Proxy | Running the Proxy . | Command and usage summary | . | SSL | Proxy configuration . | Example configuration file | Proxy options | Logging options | . | Running as a service . | Windows | Linux | . | Creating proxy-enabled packages | Troubleshooting . | Host/Connectivity Issues | SSL Certificates and Keys | . | Getting help | . ",
+    "content": ". | Overview . | Setup Overview | . | Set up a server | Installing the Proxy . | Windows | Linux | . | Running the Proxy . | Command and usage summary | . | SSL | Proxy configuration . | Example configuration file | Proxy options | Logging options | . | Running as a service . | Windows | Linux | . | Creating proxy-enabled packages | Troubleshooting . | Host/Connectivity Issues | SSL Certificates and Keys | . | Getting help | . ",
     "url": "/frl-online-proxy/en/#table-of-contents",
     "relUrl": "/en/#table-of-contents"
   },"2": {
@@ -31,7 +31,7 @@
   },"5": {
     "doc": "User Guide",
     "title": "Installing the Proxy",
-    "content": ". | Obtain the latest release for the target platform. | Extract the release package to some root directory on the server (e.g. home directory). | The proxy application binary (frl-proxy or frl-proxy.exe depending on platform) and associated utilities can be found in the frl-proxy directory. | . ",
+    "content": "Windows . | Download the latest release. | Open the application zip | Copy the frl-proxy directory to your desired root location | Open a PowerShell terminal | Change directory to the frl-proxy location &gt; cd c:\\path\\to\\frl-proxy . | Run the proxy &gt; .\\frl-proxy.exe start . | . Linux . | Download the latest release. We recommend downloading it to the root of the proxy directory (e.g. /home/[user]) $ wget https://github.com/adobe/frl-online-proxy/releases/download/v0.5.1/frl-proxy-linux-0.5.1.tar.gz . | Extract the archive $ tar xf frl-proxy-linux-0.5.1.tar.gz . | The archive will extract to the directory frl-proxy, which contains the application binary $ cd frl-proxy $ ./frl-proxy start . | . ",
     "url": "/frl-online-proxy/en/#installing-the-proxy",
     "relUrl": "/en/#installing-the-proxy"
   },"6": {
@@ -86,14 +86,14 @@
     "doc": "User Guide",
     "title": "Windows",
     "content": "Windows realeases of FRL Online Proxy include tools for setting up the service. The script bin\\service.ps1 provides a simple interface for managing the proxy as a service. Example: . &gt; .\\service.ps1 start Service \"FRL Online Proxy\" installed successfully! FRL Online Proxy: START: The operation completed successfully. Notes: . | Windows Powershell is required to run service.ps1 | Administrator rights are required to install the service, so run service.ps1 from a Powershell Admin console. | service.ps1 must be run from the frl-proxy working directory | A config file is required with the filename config.toml. This file must be in the same working directory as frl-proxy.exe and service.ps1. See Proxy configuration for more information. | . Commands: . | Command | Purpose | . | start | Install and start the proxy as a service. | . | stop | Stop the proxy service | . | restart | Restart the proxy service | . | remove | Stop the service if necessary and remove from the registry | . When the service is installed and running, you can view the status of the service in Windows Service Manager. | Open the run dialog - Windows Key + R | Enter the command services.msc | Press Enter | The Service Manager will open showing a list of services installed on the system | Ensure that FRL Online Proxy is installed, running and has a Startup Type of “Automatic” | . If something doesn’t work as expected, see Getting help. ",
-    "url": "/frl-online-proxy/en/#windows",
-    "relUrl": "/en/#windows"
+    "url": "/frl-online-proxy/en/#windows-1",
+    "relUrl": "/en/#windows-1"
   },"15": {
     "doc": "User Guide",
     "title": "Linux",
     "content": "On Linux systems, the easiest way to set up a service for the proxy is systemd. Note: sudo privileges are required for many of these steps. We recommend creating or designating a non-privileged user account that will run the proxy and own the configuration and log files. | Download the latest release to the desired system. | Extract the frl-proxy binary to a system binary directory such as /usr/bin | Generate a config file (see Proxy configuration) | Open the config file in a text editor and configure proxy and logging settings (host, ssl settings) . | If the proxy will be run by a non-privileged account, it is necessary to set the proxy to listen on a port number higher than 1024 (e.g. 4343) | The config file should be copied to a system data directory (we recommend /etc/frl-proxy) | The log file should be written to a system log directory such as /var/log (we recommend /var/log/frl-proxy) | . | If you are going to run the proxy as a non-privileged user, change ownership of config file and log directory. Replace [user] and [group] with the user and group of the non-privileged account. | sudo chown [user]:[group] /etc/frl-proxy/config.toml | sudo chown -R [user]:[group] /var/log/frl-proxy | . | Create the service configuration file /etc/systemd/system/frl-proxy.service and open it in a text editor | Copy this example configuration to the editor. Be sure to change the paths to the proxy binary and config file if necessary. And replace [user] with the name of the account that will run the proxy. [Unit] Description=FRL Online Proxy After=network.target StartLimitIntervalSec=0 [Service] Type=simple Restart=always RestartSec=1 User=[user] ExecStart=/usr/bin/frl-proxy start -c /etc/frl-proxy/config.toml [Install] WantedBy=multi-user.target . | . With the service config in place, the service can be controlled with systemctl. Here are some examples of how to manage the service. # Enable/disable determines if the service will start on boot sudo systemctl enable frl-proxy sudo systemctl disable frl-proxy # Start/stop will manually start and stop the service, restart will stop and then start it sudo systemctl start frl-proxy sudo systemctl stop frl-proxy sudo systemctl restart frl-proxy # If any changes are made to the frl-proxy.service config, the systemd daemon must be reloaded sudo systemctl daemon-reload . If something doesn’t work as expected, see Getting help. ",
-    "url": "/frl-online-proxy/en/#linux",
-    "relUrl": "/en/#linux"
+    "url": "/frl-online-proxy/en/#linux-1",
+    "relUrl": "/en/#linux-1"
   },"16": {
     "doc": "User Guide",
     "title": "Creating proxy-enabled packages",

@@ -47,10 +47,36 @@ Regardless of the port that will be used, the system must be configured to allow
 
 # Installing the Proxy
 
-<!-- 1. Download the [latest release](https://git.corp.adobe.com/dmeservices/frl-proxy/releases/latest) for the target platform. -->
-1. Obtain the latest release for the target platform.
-2. Extract the release package to some root directory on the server (e.g. home directory).
-3. The proxy application binary (`frl-proxy` or `frl-proxy.exe` depending on platform) and associated utilities can be found in the `frl-proxy` directory.
+### Windows
+
+1. Download the [latest release](https://github.com/adobe/frl-online-proxy/releases/latest).
+2. Open the application zip
+3. Copy the `frl-proxy` directory to your desired root location
+4. Open a PowerShell terminal
+5. Change directory to the frl-proxy location
+   ```
+   > cd c:\path\to\frl-proxy
+   ```
+6. Run the proxy
+   ```
+   > .\frl-proxy.exe start
+   ```
+
+### Linux
+
+1. Download the [latest release](https://github.com/adobe/frl-online-proxy/releases/latest). We recommend downloading it to the root of the proxy directory (e.g. `/home/[user]`)
+   ```
+   $ wget https://github.com/adobe/frl-online-proxy/releases/download/v0.5.1/frl-proxy-linux-0.5.1.tar.gz
+   ```
+2. Extract the archive
+   ```
+   $ tar xf frl-proxy-linux-0.5.1.tar.gz
+   ```
+3. The archive will extract to the directory `frl-proxy`, which contains the application binary
+   ```
+   $ cd frl-proxy
+   $ ./frl-proxy start
+   ```
 
 # Running the Proxy
 
