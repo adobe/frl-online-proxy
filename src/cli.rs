@@ -1,26 +1,11 @@
 /*
- * MIT License
- *
- * Copyright (c) 2020 Adobe, Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
+Copyright 2020 Adobe
+All Rights Reserved.
+
+NOTICE: Adobe permits you to use, modify, and distribute this file in
+accordance with the terms of the Adobe license agreement accompanying
+it.
+*/
 use std::str::ParseBoolError;
 use structopt::StructOpt;
 
@@ -32,6 +17,11 @@ pub enum Opt {
         #[structopt(short, long)]
         /// Path to optional config file
         config_file: Option<String>,
+
+        #[structopt(short, long)]
+        /// Mode to run the proxy in, one of passthrough, cache, store, or forward.
+        /// You can use any prefix of these names (minimally p, c, s, or f)
+        mode: Option<String>,
 
         #[structopt(long)]
         /// Proxy hostname
@@ -46,18 +36,34 @@ pub enum Opt {
         ssl: Option<bool>,
 
         #[structopt(long)]
-        /// Path to SSL certificate
+        /// Path to SSL certificate (pkcs12 format)
         ssl_cert: Option<String>,
 
         #[structopt(long)]
-        /// Path to SSL private key
-        ssl_key: Option<String>,
+        /// SSL certificate password
+        ssl_password: Option<String>,
     },
     /// Create a template config file
     InitConfig {
         #[structopt(short, long, default_value = "config.toml")]
         /// path to config filename
         out_file: String,
+    },
+    /// Manage the cache file
+    CacheControl {
+        #[structopt(short, long)]
+        /// Path to optional config file
+        config_file: Option<String>,
+
+        #[structopt(long, parse(try_from_str = parse_bool))]
+        /// Whether to clear the cache (dangerous!)
+        clear: Option<bool>,
+
+        #[structopt(short, long)]
+        export_file: Option<String>,
+
+        #[structopt(short, long)]
+        import_file: Option<String>,
     },
 }
 

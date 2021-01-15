@@ -3,7 +3,7 @@
 
 # set the options that control other options
 max_width = 90
-#width_heuristics = "Max"
+# width_heuristics = "Max"
 
 # alphabetic list of non-default options
 # (unstable ones are commented out)
@@ -19,4 +19,5 @@ fn_args_layout = "Compressed"
 #overflow_delimited_expr = true
 #trailing_comma = "Vertical"
 use_field_init_shorthand = true
+use_try_shorthand = true
 #wrap_comments = true
