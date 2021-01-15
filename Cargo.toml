@@ -5,6 +5,7 @@ authors = ["Andrew Dorton <adorton@adobe.com>", "Daniel Brotsky <dbrotsky@adobe.
 edition = "2018"
 
 [dependencies]
+tokio-stream = "0.1.2" # declare specific version to resolve conflicting dependencies
 tokio = { version = "1.0.1", features = ["full"] }
 hyper = { version = "0.14.2", features = ["full"] }
 hyper-tls = "0.5"
@@ -29,6 +30,6 @@ url = "2.1.1"
 sys-info = "0.7.0"
 
 [dependencies.sqlx]
-git = "https://github.com/ant32/sqlx"
-## tag = "v0.4.2" # comment this out to pin to `master` (not really recommended for reasons stated above)
+git = "https://github.com/adorton-adobe/sqlx"
+branch = "tokio-1.0"
 features = [ "runtime-tokio-native-tls", "sqlite" ]
