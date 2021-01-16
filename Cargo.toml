@@ -28,6 +28,7 @@ openssl-probe = "0.1.2"
 #sqlx = { path="../sqlx", features = [ "runtime-tokio-native-tls", "sqlite" ] }
 url = "2.1.1"
 sys-info = "0.7.0"
+dialoguer = "0.7.1"
 
 [dependencies.sqlx]
 git = "https://github.com/adorton-adobe/sqlx"
