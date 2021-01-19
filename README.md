@@ -1,6 +1,7 @@
 # frl-online-proxy
 
-Reverse proxy solution for Adobe customers using FRL-Online on isolated networks.
+Reverse proxy solution for Adobe customers using FRL-Online on isolated networks. In addition to a basic terminating passthrough mode, it
+also supports caching, storage and forwarding.
 
 [Read the User Guide](https://opensource.adobe.com/frl-online-proxy/)
 
@@ -11,7 +12,7 @@ All bug requests, feature requests, questions and feedback submissions are handl
 
 ## Installation
 
-We currently provide automated builds for each release. These builds target Windows and Linux.
+We provide automated builds for each release. These builds currently target Windows and Linux.
 
 ### Windows
 
@@ -47,7 +48,7 @@ We currently provide automated builds for each release. These builds target Wind
 ## Usage
 
 ```
-frl-proxy 0.5.1
+frl-proxy 0.9.0
 FRL Proxy
 
 USAGE:
@@ -58,33 +59,37 @@ FLAGS:
     -V, --version    Prints version information
 
 SUBCOMMANDS:
-    help           Prints this message or the help of the given subcommand(s)
-    init-config    Create a template config file
-    start          Start the proxy server
+    cache-control    Manage the cache file
+    help             Prints this message or the help of the given subcommand(s)
+    init-config      Create a template config file
+    start            Start the proxy server
 ```
 
 ### `start`
 
 Start the proxy. By default, it will run a plain HTTP server listening on `127.0.0.1:3030`, forwarding to `https://lcs-cops.adobe.io`.
+The default mode of operation is `passthrough` which means that caching is disabled.
 
 ```
-frl-proxy.exe-start 0.5.1
+frl-proxy.exe-start 0.9.0
 Start the proxy server
 
 USAGE:
-    frl-proxy.exe start [FLAGS] [OPTIONS]
+    frl-proxy.exe start [OPTIONS]
 
 FLAGS:
     -h, --help       Prints help information
-        --ssl
     -V, --version    Prints version information
 
 OPTIONS:
-    -c, --config-file <config-file>
-        --host <host>
-        --remote-host <remote-host>
-        --ssl-cert <ssl-cert>
-        --ssl-key <ssl-key>
+    -c, --config-file <config-file>      Path to optional config file
+        --host <host>                    Proxy hostname
+    -m, --mode <mode>                    Mode to run the proxy in, one of passthrough, cache, store, or forward. You can
+                                         use any prefix of these names (minimally p, c, s, or f)
+        --remote-host <remote-host>      Remote (licensing server) hostname
+        --ssl <ssl>                      Enable SSL? (true or false)
+        --ssl-cert <ssl-cert>            Path to SSL certificate (pkcs12 format)
+        --ssl-password <ssl-password>    SSL certificate password
 ```
 
 ### `init-config`
@@ -96,7 +101,7 @@ The `-o/--out-file` option defines the path to the new config file. By default, 
 current working directory.
 
 ```
-frl-proxy.exe-init-config 0.5.1
+frl-proxy.exe-init-config 0.9.0
 Create a template config file
 
 USAGE:
@@ -107,7 +112,31 @@ FLAGS:
     -V, --version    Prints version information
 
 OPTIONS:
-    -o, --out-file <out-file>     [default: config.toml]
+    -o, --out-file <out-file>    path to config filename [default: config.toml]
+```
+
+### `cache-control`
+
+Options for managing cache database. Currently supports clearing the cache. Import and export are coming soon.
+
+```
+frl-proxy.exe-cache-control 0.9.0
+Manage the cache file
+
+USAGE:
+    frl-proxy.exe cache-control [FLAGS] [OPTIONS]
+
+FLAGS:
+        --clear      Whether to clear the cache (dangerous!)
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+    -y               Bypass confirmation prompts
+
+OPTIONS:
+    -C, --cache-file <cache-file>      Path to cache file
+    -c, --config-file <config-file>    Path to optional config file
+    -e, --export-file <export-file>    Export cache to a file (not yet implemented)
+    -i, --import-file <import-file>    Import cache from a file (not yet implemented)
 ```
 
 ## Building and Running
