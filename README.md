@@ -82,6 +82,7 @@ FLAGS:
     -V, --version    Prints version information
 
 OPTIONS:
+    -C, --cache-file <cache-file>        Path to cache file
     -c, --config-file <config-file>      Path to optional config file
         --host <host>                    Proxy hostname
     -m, --mode <mode>                    Mode to run the proxy in, one of passthrough, cache, store, or forward. You can

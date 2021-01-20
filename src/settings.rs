@@ -44,9 +44,9 @@ pub struct Settings {
 
 impl Settings {
     pub fn from_start(
-        config_file: Option<String>, mode: Option<String>, host: Option<String>,
-        remote_host: Option<String>, ssl: Option<bool>, ssl_cert: Option<String>,
-        ssl_key: Option<String>,
+        config_file: Option<String>, mode: Option<String>, cache_file: Option<String>,
+        host: Option<String>, remote_host: Option<String>, ssl: Option<bool>,
+        ssl_cert: Option<String>, ssl_key: Option<String>,
     ) -> Result<Self, ConfigError> {
         let mut s = Config::new();
         s.merge(ConfigFile::from_str(
@@ -58,6 +58,9 @@ impl Settings {
         }
         if let Some(mode) = mode {
             s.set("proxy.mode", mode)?;
+        }
+        if let Some(cache_file) = cache_file {
+            s.set("cache.cache_file_path", cache_file)?;
         }
         if let Some(host) = host {
             s.set("proxy.host", host)?;

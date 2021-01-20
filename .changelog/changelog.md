@@ -10,6 +10,8 @@ Feature summary:
   * `forward` - execute all licensing activation and deactivation requests with licensing service and cache response data
 * `cache-control` command - manage the cache database
   * `--clear` - clear a cache database
+* `cache.cache_file_path` added to config file to specify cache DB file path
+  * Can be overridden from command-line with `-C/--config-file`
 * SSL cert now authenticated with password instead of key
 
 ---

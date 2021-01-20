@@ -31,6 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         cli::Opt::Start {
             config_file,
             mode,
+            cache_file,
             host,
             remote_host,
             ssl,
@@ -40,6 +41,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             let mut conf = Settings::from_start(
                 config_file,
                 mode,
+                cache_file,
                 host,
                 remote_host,
                 ssl,

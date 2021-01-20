@@ -23,6 +23,10 @@ pub enum Opt {
         /// You can use any prefix of these names (minimally p, c, s, or f)
         mode: Option<String>,
 
+        #[structopt(short = "C", long)]
+        /// Path to cache file
+        cache_file: Option<String>,
+
         #[structopt(long)]
         /// Proxy hostname
         host: Option<String>,

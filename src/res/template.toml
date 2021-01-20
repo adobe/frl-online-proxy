@@ -16,4 +16,5 @@ file_log_path = "frl-proxy.log"
 
 [cache]
 # Cache settings
+# cache_file_path is overidden by --cache-file <filename>
 #cache_file_path = "frl-proxy.cache"
