@@ -3,6 +3,7 @@
 
 # set the options that control other options
 max_width = 90
+use_small_heuristics = "Max"
 # width_heuristics = "Max"
 
 # alphabetic list of non-default options
