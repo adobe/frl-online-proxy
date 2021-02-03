@@ -31,6 +31,7 @@ sys-info = "0.7.0"
 dialoguer = "0.7.1"
 
 [dependencies.sqlx]
-git = "https://github.com/adorton-adobe/sqlx"
-branch = "tokio-1.0"
+git = "https://github.com/launchbadge/sqlx"
+branch = "master"
+tag = "31abe22e348d6ac668c140de32612f0930c2abec"
 features = [ "runtime-tokio-native-tls", "sqlite" ]

@@ -1310,7 +1310,6 @@ version = "1.0.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4fceb2595057b6891a4ee808f70054bd2d12f0e97f1cbb78689b59f676df325a"
 dependencies = [
- "indexmap",
  "itoa",
  "ryu",
  "serde 1.0.118",
@@ -1386,7 +1385,7 @@ dependencies = [
 [[package]]
 name = "sqlx"
 version = "0.4.2"
-source = "git+https://github.com/adorton-adobe/sqlx?branch=tokio-1.0#bb3992c8bf127b7cf9037132b45cf6eb0f7dc0af"
+source = "git+https://github.com/launchbadge/sqlx?branch=master#31abe22e348d6ac668c140de32612f0930c2abec"
 dependencies = [
  "sqlx-core",
  "sqlx-macros",
@@ -1395,7 +1394,7 @@ dependencies = [
 [[package]]
 name = "sqlx-core"
 version = "0.4.2"
-source = "git+https://github.com/adorton-adobe/sqlx?branch=tokio-1.0#bb3992c8bf127b7cf9037132b45cf6eb0f7dc0af"
+source = "git+https://github.com/launchbadge/sqlx?branch=master#31abe22e348d6ac668c140de32612f0930c2abec"
 dependencies = [
  "ahash 0.6.2",
  "atoi",
@@ -1434,17 +1433,14 @@ dependencies = [
 [[package]]
 name = "sqlx-macros"
 version = "0.4.2"
-source = "git+https://github.com/adorton-adobe/sqlx?branch=tokio-1.0#bb3992c8bf127b7cf9037132b45cf6eb0f7dc0af"
+source = "git+https://github.com/launchbadge/sqlx?branch=master#31abe22e348d6ac668c140de32612f0930c2abec"
 dependencies = [
  "dotenv",
  "either",
  "futures",
  "heck",
- "once_cell",
  "proc-macro2",
  "quote",
- "serde 1.0.118",
- "serde_json",
  "sha2",
  "sqlx-core",
  "sqlx-rt",
@@ -1455,7 +1451,7 @@ dependencies = [
 [[package]]
 name = "sqlx-rt"
 version = "0.2.0"
-source = "git+https://github.com/adorton-adobe/sqlx?branch=tokio-1.0#bb3992c8bf127b7cf9037132b45cf6eb0f7dc0af"
+source = "git+https://github.com/launchbadge/sqlx?branch=master#31abe22e348d6ac668c140de32612f0930c2abec"
 dependencies = [
  "native-tls",
  "once_cell",
