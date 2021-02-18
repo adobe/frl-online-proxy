@@ -1,5 +1,3 @@
-# v1.0
-
 ### Added
 * Cache functionality with store and forward modes ([#4])
     * New commands for cache control ([#8], [#10]):
