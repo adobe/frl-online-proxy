@@ -23,7 +23,7 @@ eyre = "~0.6"
 log = "~0.4"
 fern = "~0.6"
 chrono = "~0.4"
-ctrlc = "~3.1"
+ctrlc = { version = "~3.1", features = ["termination"] }
 openssl-probe = "~0.1.2"
 sqlx = { version = "~0.5.1", default-features = false, features = [ "runtime-tokio-native-tls", "sqlite" ] }
 url = "~2.1.1"
