@@ -14,9 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build static
-      uses: stevenleadbeater/rust-musl-builder@master
-      with:
-          args: /bin/bash -c "rustup update && cargo build --release --target=x86_64-unknown-linux-musl"
+      run: docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder cargo build --release
     - run: |
         npm install
         npm run dist
