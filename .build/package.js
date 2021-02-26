@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*
  * Copyright 2020 Adobe
  * All Rights Reserved.
@@ -7,7 +8,6 @@
  * it.
  */
 
-#!/usr/bin/env node
 import pkg from 'shelljs';
 const { rm, mkdir, cp, cd } = pkg;
 import archiver from 'archiver';
