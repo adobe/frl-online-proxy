@@ -16,7 +16,7 @@ jobs:
     - name: Build static
       uses: stevenleadbeater/rust-musl-builder@master
       with:
-          args: /bin/bash -c "cargo build --release --target=x86_64-unknown-linux-musl"
+          args: /bin/bash -c "rustup update && cargo build --release --target=x86_64-unknown-linux-musl"
     - run: |
         npm install
         npm run dist
