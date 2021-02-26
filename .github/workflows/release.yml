@@ -15,7 +15,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build static
       run: |
-        sudo chown -R 1000:1000 .
+        mkdir target
+        sudo chown 1000 target
         docker run --rm -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder cargo build --release
     - run: |
         npm install
