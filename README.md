@@ -47,97 +47,7 @@ We provide automated builds for each release. These builds currently target Wind
 
 ## Usage
 
-```
-frl-proxy 0.9.0
-FRL Proxy
-
-USAGE:
-    frl-proxy.exe <SUBCOMMAND>
-
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-SUBCOMMANDS:
-    cache-control    Manage the cache file
-    help             Prints this message or the help of the given subcommand(s)
-    init-config      Create a template config file
-    start            Start the proxy server
-```
-
-### `start`
-
-Start the proxy. By default, it will run a plain HTTP server listening on `127.0.0.1:3030`, forwarding to `https://lcs-cops.adobe.io`.
-The default mode of operation is `passthrough` which means that caching is disabled.
-
-```
-frl-proxy.exe-start 0.9.0
-Start the proxy server
-
-USAGE:
-    frl-proxy.exe start [OPTIONS]
-
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-OPTIONS:
-    -c, --config-file <config-file>      Path to optional config file
-        --host <host>                    Proxy hostname
-    -m, --mode <mode>                    Mode to run the proxy in, one of passthrough, cache, store, or forward. You can
-                                         use any prefix of these names (minimally p, c, s, or f)
-        --remote-host <remote-host>      Remote (licensing server) hostname
-        --ssl <ssl>                      Enable SSL? (true or false)
-        --ssl-cert <ssl-cert>            Path to SSL certificate (pkcs12 format)
-        --ssl-password <ssl-password>    SSL certificate password
-```
-
-### `init-config`
-
-Initialize a config file template. The config file is optional. It is used to define proxy defaults (host, remote host, ssl settings) and to
-override logging defaults.
-
-The `-o/--out-file` option defines the path to the new config file. By default, the file will be named `config.toml` and be placed in the
-current working directory.
-
-```
-frl-proxy.exe-init-config 0.9.0
-Create a template config file
-
-USAGE:
-    frl-proxy.exe init-config [OPTIONS]
-
-FLAGS:
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-
-OPTIONS:
-    -o, --out-file <out-file>    path to config filename [default: config.toml]
-```
-
-### `cache-control`
-
-Options for managing cache database. Currently supports clearing the cache. Import and export are coming soon.
-
-```
-frl-proxy.exe-cache-control 0.9.0
-Manage the cache file
-
-USAGE:
-    frl-proxy.exe cache-control [FLAGS] [OPTIONS]
-
-FLAGS:
-        --clear      Whether to clear the cache (dangerous!)
-    -h, --help       Prints help information
-    -V, --version    Prints version information
-    -y               Bypass confirmation prompts
-
-OPTIONS:
-    -C, --cache-file <cache-file>      Path to cache file
-    -c, --config-file <config-file>    Path to optional config file
-    -e, --export-file <export-file>    Export cache to a file (not yet implemented)
-    -i, --import-file <import-file>    Import cache from a file (not yet implemented)
-```
+See the [User Guide](https://opensource.adobe.com/frl-online-proxy/) for details on setting up and running the FRL Online Proxy.
 
 ## Building and Running
 
@@ -160,10 +70,10 @@ To run the proxy application, invoke `cargo run`. This installs dependencies, co
 $ cargo run -- start
 ```
 
-Any commands or options specified after the `--` will be sent to the proxy application. For example, to start the proxy with a different host:
+Any commands or options specified after the `--` will be sent to the proxy application. For example, to start the proxy in a different mode:
 
 ```
-$ cargo run -- start --host 0.0.0.0:8080
+$ cargo run -- start --mode cache
 ```
 
 The first time you invoke `cargo run` it will take some time to install and build all dependencies. Subsequent `cargo run` invocations will skip the build and run the binary.
