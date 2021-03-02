@@ -42,9 +42,25 @@ jobs:
         name: frl-proxy-windows
         path: dist/*.zip
         retention-days: 5
+  macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2-beta
+      with:
+        node-version: '14'
+    - name: Build release
+      run: |
+        npm install
+        npm run package
+    - uses: actions/upload-artifact@v2
+      with:
+        name: frl-proxy-macos
+        path: dist/*.tar.gz
+        retention-days: 5
   release:
     runs-on: ubuntu-latest
-    needs: [linux, windows]
+    needs: [linux, windows, macos]
     steps:
     - uses: actions/checkout@v2
     - name: Create Release
@@ -68,6 +84,6 @@ jobs:
       uses: battila7/get-version-action@v2
     - uses: AButler/upload-release-assets@v2.0
       with:
-        files: 'frl-proxy-linux/*;frl-proxy-windows/*'
+        files: 'frl-proxy-linux/*;frl-proxy-windows/*;frl-proxy-macos/*'
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         release-tag: ${{ steps.get_version.outputs.version }}
