@@ -1,3 +1,6 @@
+**NOTE:** The only new addition for this release is the macOS build, so we are re-posting the notes for the
+last release.
+
 ### Added
 * Cache functionality with store and forward modes ([#4])
     * New commands for cache control ([#8], [#10]):
