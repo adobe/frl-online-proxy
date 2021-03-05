@@ -12,7 +12,7 @@ All bug requests, feature requests, questions and feedback submissions are handl
 
 ## Installation
 
-We provide automated builds for each release. These builds currently target Windows and Linux.
+We provide automated builds for each release. These builds currently target Windows, Linux and macOS.
 
 ### Windows
 
@@ -29,15 +29,15 @@ We provide automated builds for each release. These builds currently target Wind
    > .\frl-proxy.exe start
    ```
 
-### Linux
+### Linux and macOS
 
 1. Download the [latest release](https://github.com/adobe/frl-online-proxy/releases/latest). We recommend downloading it to the root of the proxy directory (e.g. `/home/[user]`)
    ```
-   $ wget https://github.com/adobe/frl-online-proxy/releases/download/v0.5.1/frl-proxy-linux-0.5.1.tar.gz
+   $ wget https://github.com/adobe/frl-online-proxy/releases/download/v1.0.1/frl-proxy-linux-1.0.1.tar.gz
    ```
 2. Extract the archive
    ```
-   $ tar xf frl-proxy-linux-0.5.1.tar.gz
+   $ tar xf frl-proxy-linux-1.0.1.tar.gz
    ```
 3. The archive will extract to the directory `frl-proxy`, which contains the application binary
    ```
@@ -51,7 +51,7 @@ See the [User Guide](https://opensource.adobe.com/frl-online-proxy/) for details
 
 ## Building and Running
 
-**NOTE:** We currently provide [builds](https://github.com/adobe/frl-online-proxy/releases/latest) for Windows and Linux. If you plan to run the proxy on these platforms, we recommend installing the latest build. It is generally only necessary to build the tool if you are doing development work, need to run it on a different platform, or if your system is unable to execute the binary.
+**NOTE:** We currently provide [builds](https://github.com/adobe/frl-online-proxy/releases/latest) for Windows, Linux and macOS. If you plan to run the proxy on these platforms, we recommend installing the latest build. It is generally only necessary to build the tool if you are doing development work, need to run it on a different platform, or if your system is unable to execute the binary.
 
 To build the proxy application, make sure you have the [Rust toolchain](https://rustup.rs/) installed on your system.
 
@@ -84,7 +84,9 @@ Build the proxy application with `cargo build`. Once the build process completes
 
 The proxy can also be built for release (which creates and optimized binary) with `cargo build --release`. This binary can be found in `target/release`.
 
-### Buliding on Ubuntu
+Builds on Windows and macOS should work with just the Rust toolchain. On Linux, it may be necessary to install certain prerequisite system packages.
+
+### Buliding on Ubuntu and other Debian variants
 
 Ubuntu requires a few system packages to be installed in order to build the application.
 
@@ -95,7 +97,7 @@ $ sudo apt install -y build-essential libssl-dev pkg-config
 
 NOTE: This is known to be sufficient for Ubuntu 18.04, but should also work for Debian and other Debian variants.
 
-### Buliding on CentOS
+### Buliding on CentOS/Redhat Enterprise Linux
 
 CentOS/RHEL also requires some system packages before the application can be built.
 
