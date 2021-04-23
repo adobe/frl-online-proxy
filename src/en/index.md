@@ -271,8 +271,7 @@ so that only the account running the proxy can read it.
 The password can be stored in plain text in the configuration file or in the environment variable `FRL_PROXY_SSL.CERT_PASSWORD`.
 If you store your password in the configuration, be sure to limit access to that file.
 
-Consult your organization's network security team if you need to use an organization certificate. Free cerftificates can be obtained
-from [Let's Encrypt](https://letsencrypt.org/).
+The SSL certificate must be trusted by the client machines that contact the proxy, but it need not be a publicly-signed certificate (that is, it can be a self-signed certificate that is installed on the client machines and marked as trusted). For testing, you may wish to use a free, short-lived, renewable, publicly-signed certificate obtained from [Let's Encrypt](https://letsencrypt.org/).  Consult your organization's network security team if you need to use a long-lived, publicly-signed certificate.
 
 SSL options are configured in `proxy-conf.toml`:
 
