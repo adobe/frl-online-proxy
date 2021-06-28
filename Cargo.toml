@@ -8,12 +8,14 @@ edition = "2018"
 tokio-stream = "~0.1.2" # declare specific version to resolve conflicting dependencies
 tokio = { version = "~1.0.3", features = ["full"] }
 hyper = { version = "~0.14.2", features = ["full"] }
+hyper-proxy = "~0.9.1"
 hyper-tls = "~0.5"
 native-tls = "~0.2.7"
 tokio-native-tls = "~0.3"
 async-stream = "~0.3.0"
 futures = "~0.3.1"
 futures-util = "~0.3.1"
+headers = "~0.3.4"
 config = "~0.10"
 serde = { version = "~1.0.123", features = ["derive"] }
 serde_json = "~1.0.62"
