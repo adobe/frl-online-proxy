@@ -7,7 +7,9 @@
     <option name="allFeatures" value="false" />
     <option name="emulateTerminal" value="true" />
     <option name="backtrace" value="SHORT" />
-    <envs />
+    <envs>
+      <env name="FRL_PROXY_TIMEOUT" value="10000" />
+    </envs>
     <option name="isRedirectInput" value="false" />
     <option name="redirectInputPath" value="" />
     <method v="2">
