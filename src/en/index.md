@@ -436,6 +436,14 @@ file_path = "proxy-log.log"
 
 [cache]
 db_path = "proxy-cache.sqlite"
+
+[network]
+use_proxy = false
+proxy_host = "127.0.0.1"
+proxy_port = "8888"
+use_basic_auth = false
+proxy_username = ""
+proxy_password = ""
 ```
 
 ## Proxy Options

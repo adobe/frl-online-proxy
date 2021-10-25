@@ -97,7 +97,7 @@
   },"16": {
     "doc": "User Guide",
     "title": "Proxy Configuration",
-    "content": "The configuration file is named proxy-conf.toml by default. It uses TOML syntax. Running start for the first time will start a configuration wizard that will prompt you to set up the configuration file. The configuration file can be updated at any time by using the configure command. Example: . [proxy] mode = \"cache\" host = \"0.0.0.0\" port = \"8080\" ssl_port = \"8443\" remote_host = \"https://lcs-cops.adobe.io\" ssl = true [ssl] cert_path = \"proxy-cert.pfx\" cert_password = \"\" [logging] level = \"debug\" destination = \"console\" file_path = \"proxy-log.log\" [cache] db_path = \"proxy-cache.sqlite\" . ",
+    "content": "The configuration file is named proxy-conf.toml by default. It uses TOML syntax. Running start for the first time will start a configuration wizard that will prompt you to set up the configuration file. The configuration file can be updated at any time by using the configure command. Example: . [proxy] mode = \"cache\" host = \"0.0.0.0\" port = \"8080\" ssl_port = \"8443\" remote_host = \"https://lcs-cops.adobe.io\" ssl = true [ssl] cert_path = \"proxy-cert.pfx\" cert_password = \"\" [logging] level = \"debug\" destination = \"console\" file_path = \"proxy-log.log\" [cache] db_path = \"proxy-cache.sqlite\" [network] use_proxy = false proxy_host = \"127.0.0.1\" proxy_port = \"8888\" use_basic_auth = false proxy_username = \"\" proxy_password = \"\" . ",
     "url": "/frl-online-proxy/en/#proxy-configuration",
     "relUrl": "/en/#proxy-configuration"
   },"17": {
