@@ -401,6 +401,12 @@ $ ./frl-proxy import proxy-store.sqlite
 Imported 24 forwarded request/response pair(s) from proxy-store.sqlite
 ```
 
+# Working with an Upstream Proxy
+
+The FRL Online Proxy can be configured to use an upstream proxy in order to communicate with Adobe's licensing service. It can be used
+with no authentication or with basic authentication. It can be configured using the interactive configuration wizard (with `./frl-proxy configure`)
+or manually [in the config file](#network-options).
+
 # Proxy Configuration
 
 The configuration file is named `proxy-conf.toml` by default. It uses [TOML](https://toml.io/) syntax.
@@ -486,6 +492,19 @@ For example, setting the level to `warn` will output warnings and errors.
 | Option | Purpose |
 |---|---|
 | `db_path` | Path to cache DB |
+
+## Network Options
+
+`[network]` configures upstream proxy options.
+
+| Option | Purpose |
+|---|---|
+| `use_proxy` | Enable upstream proxy connection |
+| `proxy_host` | Hostname or IP address of upstream proxy |
+| `proxy_port` | Port to use for upstream proxy connection |
+| `use_basic_auth` | Enable basic authentication? |
+| `proxy_username` | Username for basic authentication |
+| `proxy_password` | Password for basic authentication |
 
 # Running as a service
 
