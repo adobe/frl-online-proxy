@@ -1,7 +1,7 @@
 {
   "name": "post-build",
   "description": "Post-build scripts for FRL Proxy",
-  "version": "1.1-rc1",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "build": "cargo build --release",
@@ -9,8 +9,8 @@
     "package": "npm run build && npm run dist"
   },
   "dependencies": {
-    "archiver": "^5.0.0",
+    "archiver": "^5.3.0",
     "shelljs": "^0.8.4",
-    "tar": "^6.0.5"
+    "tar": "^6.1.9"
   }
 }

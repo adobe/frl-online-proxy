@@ -33,11 +33,11 @@ We provide automated builds for each release. These builds currently target Wind
 
 1. Download the [latest release](https://github.com/adobe/frl-online-proxy/releases/latest). We recommend downloading it to the root of the proxy directory (e.g. `/home/[user]`)
    ```
-   $ wget https://github.com/adobe/frl-online-proxy/releases/download/v1.0.1/frl-proxy-linux-1.0.1.tar.gz
+   $ wget https://github.com/adobe/frl-online-proxy/releases/download/v1.1.0/frl-proxy-linux-1.1.0.tar.gz
    ```
 2. Extract the archive
    ```
-   $ tar xf frl-proxy-linux-1.0.1.tar.gz
+   $ tar xf frl-proxy-linux-1.1.0.tar.gz
    ```
 3. The archive will extract to the directory `frl-proxy`, which contains the application binary
    ```
