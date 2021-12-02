@@ -264,7 +264,7 @@ $ ./frl-proxy start -m cache
 
 # SSL
 
-The proxy supports plain (non-SSL) mode for testing and debugging, but must use SSL with FRL-Online packages.
+The proxy supports both SSL (https) and non-SSL (http) clients.  This allows customers the opportunity to examine the actual data transferred during the activation process and so ensure that no sensitive data is being exchanged.  (Please note: Adobe applications running on MacOS cannot be configured to send activation requests via HTTP, but customers can use an HTTPS to HTTP proxy between those applications and the FRL proxy so that it can be used in non-SSL-client mode.)
 
 SSL mode requires an X.509 SSL certificate and password. The certificate file should be secured with limited file permissions
 so that only the account running the proxy can read it.
