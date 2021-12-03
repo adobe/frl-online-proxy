@@ -30,45 +30,43 @@ For customers who want to put their proxy on an internal network with is either 
 
 ## Use Cases
 
-### Live Proxy
+### Always-connected networks
 
-For simple use cases, the proxy can forward live calls directly to Adobe's licensing service. This mode, known as `passthrough` mode, requires
-the server running the proxy have consistent live access to the licensing service.
+If a proxy instance can always contact Adobe servers, then it can be run in `passthrough` mode where it passes through every received request to Adobe and returns the response directly to the client.  This setup is typically used for security purposes, because it prevents users on the proxy's LAN from having direct internet access while still allowing their applications to be licensed via FRL Online.  The advantage of not turning on caching in this case is that the proxy uses no database resources and thus can be run forever with no administrative overhead.
 
-### Cache
+### Intermittently-connected networks
 
-`cache` mode works similarly to `passthrough` except that it maintains a cache of license activation/deactivaction requests and their responses
-(if the licensing service can be reached). In `cache` mode, the proxy will attempt to forward the request to the licensing service. If the
-service is reachable, it will forward the response back to the FRL client. Whether or not the service is reachable, requests are cached.
+If a proxy instance is on an intermittently-connected network, then it can be run in `cache` mode where it caches responses from Adobe while connected and then reuses them when offline.  A proxy running in `cache` mode works similarly to one running in `passthrough` mode, but it always stores in the database the latest request it has received from each application on each machine, and whenever it receives a matching response to a request it stores that also. That way, after having run for a period of time connected, the proxy can successfully respond to all requests from machines on its local network, even if they come from OS users who have not previously activated their applications.
 
-Responses for cached requests can be obtained by running the proxy in `forward` mode. `cache` mode will not automatically forward cached
-requests to the licensing service.
+If new machines or applications are deployed to a network while the network is offline, the proxy will not be able to activate those machines or applications, but it will remember the requests for activation in its database.  Then, when the proxy regains connectivity to Adobe, an administrator can perform one run of the proxy in `forward` mode, which will cause it to get responses to all of the cached requests.  That way, when the proxy is taken back offline, the new machine or applications whose requests were forwarded and whose responses were stored will be able to activate as expected.
 
-### Store and Forward
+Because the proxy uses a file-based database when in `cache` mode, its machine must have enough disk space available to store one request/response pair for each application on each machine, where each pair is typically less than 10K bytes in size.  In addition, as described above, proxies running in `cache` mode should be run once in `forward` mode whenever they have been offline while new machines or applications were deployed to their LAN.
 
-A Store and Forward setup requires two instances of the FRL Online Proxy. These instances can be set up on the same machine, different
-machines on the same network, or on different networks.
+### Fully-isolated networks
 
-* The instance running in `store` mode should be part of an isolated network where it will accept license requests from FRL-enabled applications.
-* The instance running `forward` mode must have live access to Adobe's licensing service.
+If a proxy is going to be used effectively on a fully isolated network, then a second proxy on a connected network is required so that the two can run as a "store-forward pair", as follows:
 
-`store` mode is similar to `cache`, except that no live calls to Adobe's licensing service are attempted. All calls to the proxy are
-automatically cached.
+- Let's call the two proxy instances SI and FI (for _storing instance_ and _forwarding instance_). Configure SI and FI so they both use databases that are called `proxy-db.sqlite`.  Make sure the FI instance has access to Adobe servers over the network.
+- Run SI in `store` mode on a regular basis (using `frl-proxy -m store`).  This will cause it to collect all requests that it cannot answer from its cache of responses, but because it's on an isolated network it will not try to contact Adobe.
+- From time to time, stop SI for a moment. Collect all the unanswered requests it has accumulated by invoking `frl-proxy export stored-requests.sqlite`. (This exports any unanswered requests in proxy-db.sqlite to a new database stored-requests.sqlite.) Then restart the SI instance as usual with `frl-proxy -m store`.
+- Move the `stored-requests.sqlite` database file to the FI instance location and rename it `frl-proxy.sqlite` so it's the database used by FI.
+- Forward all the stored requests to Adobe by invoking FI with `frl-proxy -m forward`. This will complete quickly, sending all the stored requests in the `frl-proxy.sqlite` database to Adobe servers and storing the responses in the same database.
+- When the forwarding has completed, move the `frl-proxy.sqlite database` from the FI machine to the SI machine and rename it `forwarded-requests.sqlite`.
+- Stop the SI instance for a moment. Import the database of forwarded responses into the SI instance by invoking `frl-proxy import forwarded-requests.sqlite`. This will move all the received responses into the `proxy-db.sqlite` file. Restart the SI instance as usual with `frl-proxy -m store`.
 
-This mode is useful in situations where the server running the proxy cannot have live access to the Internet. If temporary access to
-Adobe's licensing service can be permitted, then the proxy can run in `forward` mode to resolve license requests.
+At this point all the forward response will be available to the storing instance, so any apps whose requests had been stored will be successfully activated when they are next launched.
 
-Otherwise, cache data can be exported and transferred to a different machine (via USB drive for instance), where another instance of the
-proxy can resolve license requests in `forward` mode. In this case, resolved response data will need to be manually transferred back to
-the machine on the isolated network and imported into the "store mode" proxy instance's database.
+See [cache management](#cache-management) for more information on the proxy `export` and `import` commands.
 
-See [cache management](#cache-management) for more information.
+### Isolated machines
 
-`forward` mode is a special batch mode in which unresolved licensing requests are forwarded to Adobe's licensing service. If the service
-is reachable then response data is stored in the cache database.
+There is a variant of the store-forward architecture described above that can be used to pre-activate all the applications on an isolated machine.  In this use case, we have one or more machines that are being set up for use on an isolated network, but during the setup process they have access to the network.  In this case, the procedure is as follows:
 
-Unlike the other modes, `forward` will not launch a proxy server that listens for new requests. Once all unresolved requests are attempted
-for resolution, the process will exit.
+- In addition to installing the applications and (proxy) licenses on the isolated machines, each isolated machine also gets configured with its own instance of the FRL Proxy (using a trusted certificate for localhost) that is configured to run in `store` mode as a service.
+- While the machines are connected to the network, an administrator runs the proxy in `cache` mode and launches each of the applications that are to be activated.
+- Then the machines are put in their isolated locations.
+
+Because activating the applications in `cache` mode will cache the initial activation responses in the database, each machine's proxy (now running in `store` mode) will be able to activate the application even when they are launched for the first time by other OS users on the isolated machines.
 
 ## Setup Overview
 
@@ -295,15 +293,12 @@ $ ./frl-proxy start --ssl false
 
 # Cache, Store and Forward
 
-The most basic mode, `passthrough`, forwards live calls to Adobe's licensing services without caching any data. It doesn't cache any
-license activation or deactivation requests, and requires a live connection to the Internet at all times.
+The most basic mode, `passthrough`, forwards live calls to Adobe's licensing services without caching any data. It doesn't cache any license activation or deactivation requests or responses, and requires a live connection to the Internet at all times.
 
 The proxy can be set up to use a local cache to store data for various use cases.
 
-* **Requests** - Activation and deactivation requests are cached in `cache` and `store` mode. If an activation/deactivation response
-  for a given request is unavailable, it can be retrieved at a later time when Internet connectivity is available.
-* **Responses** - Activation and deactivation responses are cached to ensure that client packages can operate as expected when
-  they get a valid cached response from the proxy.
+* **Requests** - Activation and deactivation requests are cached in `cache` and `store` modes. If an activation/deactivation response for a given request is unavailable, the proxy stores the request for later forwarding (when it has internet access).
+* **Responses** - Activation and deactivation responses are cached in `cache` and `forward` modes. When operating in `cache` mode, if a request comes in whose matching response is already in the cache, the proxy will return that response even if it cannot contact Adobe servers.
 
 The mode can be set in `proxy-conf.toml`:
 
@@ -349,7 +344,7 @@ Cache has been cleared.
 
 ## Export
 
-A proxy running in `store` mode can use the `export` command to export all unfulfilled license requests to a database file.
+A proxy running in `cache` or `store` mode can use the `export` command to export all unfulfilled license requests to a database file.
 
 ```
 frl-proxy.exe-export 1.0.0
@@ -377,8 +372,7 @@ Exported 24 stored request(s) to proxy-store.sqlite
 
 ## Import
 
-`import` is used with a proxy that will run in `forward` mode to fulfill a batch of unfulfilled license requests. It imports request
-data from a database file that was generated using `export`.
+A proxy running in `cache` or `store` mode can use the `import` command to import all the stored responses that were received during a connected `cache` or `forward` session.
 
 ```
 frl-proxy.exe-import 1.0.0
