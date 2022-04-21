@@ -1,5 +1,21 @@
 | tag | date | title |
 |---|---|---|
+| v1.2.0 | 2022-04-20 | frl-online-proxy v1.2.0 |
+
+# New Features
+
+- #36 Status endpoint
+
+# Bug Fixes/Documentation
+
+- #36 Update use case documentation
+- #35 Logging cleanup
+- #29 Remove passwords from debug log messages
+- #37 Fix issues with Windows service installation
+
+---
+| tag | date | title |
+|---|---|---|
 | v1.1.0 | 2021-10-25 | frl-online-proxy v1.1.0 |
 
 # New Features

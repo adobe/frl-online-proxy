@@ -1,7 +1,7 @@
 {
   "name": "post-build",
   "description": "Post-build scripts for FRL Proxy",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "build": "cargo build --release",

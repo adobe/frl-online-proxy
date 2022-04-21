@@ -1,6 +1,6 @@
 [package]
 name = "frl-proxy"
-version = "1.1.0"
+version = "1.2.0"
 authors = ["Andrew Dorton <adorton@adobe.com>", "Daniel Brotsky <dbrotsky@adobe.com>"]
 edition = "2018"
 
