@@ -9,7 +9,7 @@
     "package": "npm run build && npm run dist"
   },
   "dependencies": {
-    "archiver": "^5.3.0",
+    "archiver": "^5.3.1",
     "shelljs": "^0.8.5",
     "tar": "^6.1.9"
   }
